@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 interface IFilters {
-	applyClosedFilter: (e: boolean) => void
+	applyClosedFilter: (e: string) => void
 	applyColorFilter: (e: string) => void
 	hasFriends: (e: boolean) => void
 }
