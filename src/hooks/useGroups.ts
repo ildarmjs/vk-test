@@ -36,17 +36,10 @@ const useGroups = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			axios
-				.get('https://633ab4c7e02b9b64c6155e2f.mockapi.io/groups')
-				// .get('http://localhost:3000/groups')
+				.get(`${import.meta.env.VITE_BASE_URL}/groups`)
 				.then(response => {
 					setGroups(response.data)
 					setFilteredGroups(response.data)
-					// if (response.data && response.data.result === 1) {
-					// 	setGroups(response.data.data)
-					// 	setFilteredGroups(response.data?.data || [])
-					// } else {
-					// 	throw new Error('No valid data returned')
-					// }
 					setLoading(false)
 				})
 				.catch(error => {
