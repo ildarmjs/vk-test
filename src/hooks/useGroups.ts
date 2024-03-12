@@ -6,48 +6,27 @@ const useGroups = () => {
 	const [groups, setGroups] = useState<IGroup[]>([])
 	const [filteredGroups, setFilteredGroups] = useState<IGroup[]>([])
 	const [loading, setLoading] = useState(true)
-	// const fetchData = async () => {
-	// 	try {
-	// 		// setLoading(true)
-	// 		const response: AxiosResponse<IGetGroupsResponse> = await axios.get <IGetGroupsResponse>(
-	// 			'https://633ab4c7e02b9b64c6155e2f.mockapi.io/groups'
-	// 		)
-	// 		setGroups(response?.data?.data || IGroup)
-	// 		setFilteredGroups(response.data)
-	// 		setLoading(false)
-	// 		// if (response.status === 200 && response.data.result === 1 && response.data.data) {
-	// 		// 	setGroups(response.data.data || [])
-	// 		// 	setFilteredGroups(response.data.data)
-	// 		// 	setLoading(false)
-	// 		// } else {
-	// 		// 	console.error('Failed to fetch groups data')
-	// 		// }
-	// 	} catch (error) {
-	// 		console.error('Failed to fetch groups data', error)
-	// 		setLoading(false)
-	// 	}
-	// };
-	// useEffect(() => {
-	// 	const delay = 1000;
-	// 	const timeout = setTimeout(fetchData, delay);
-	// 	return () => clearTimeout(timeout);
-	// }, []);
+	const [error, setError] = useState('')
 
+	const fetchData = async () => {
+		try {
+			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/groups`
+			)
+			setGroups(response.data)
+			setFilteredGroups(response.data)
+			setLoading(false)
+
+		} catch (error) {
+			console.error('Failed to fetch groups data', error)
+			setError('Error fetching data: ' + error);
+			setLoading(false)
+		}
+	};
 	useEffect(() => {
-		setTimeout(() => {
-			axios
-				.get(`${import.meta.env.VITE_BASE_URL}/groups`)
-				.then(response => {
-					setGroups(response.data)
-					setFilteredGroups(response.data)
-					setLoading(false)
-				})
-				.catch(error => {
-					console.error('Error fetching data:', error)
-					setLoading(false)
-				})
-		}, 1000) // Имитация задержки в 1 секунду
-	}, [])
+		const delay = 1000;
+		const timeout = setTimeout(fetchData, delay);
+		return () => clearTimeout(timeout);
+	}, []);
 
 	const hasFriends = (friendsCount: boolean) => {
 		let filtered = groups
@@ -90,7 +69,7 @@ const useGroups = () => {
 		)
 	}
 
-	return { loading, applyClosedFilter, applyColorFilter, hasFriends, filteredGroups, showFriends, }
+	return { loading, applyClosedFilter, applyColorFilter, hasFriends, filteredGroups, showFriends, error }
 }
 
 export default useGroups
