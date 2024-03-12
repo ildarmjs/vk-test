@@ -36,8 +36,8 @@ const useGroups = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			axios
-				// .get('https://633ab4c7e02b9b64c6155e2f.mockapi.io/groups')
-				.get('http://localhost:3000/groups')
+				.get('https://633ab4c7e02b9b64c6155e2f.mockapi.io/groups')
+				// .get('http://localhost:3000/groups')
 				.then(response => {
 					setGroups(response.data)
 					setFilteredGroups(response.data)
