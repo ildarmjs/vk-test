@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from "axios"
+import axios from "axios"
 import { useState, useEffect } from "react"
-import { IGetGroupsResponse, IGroup, IUser } from "../interfaces/interface"
+import { IGroup, IUser } from "../interfaces/interface"
 
 const useGroups = () => {
 	const [groups, setGroups] = useState<IGroup[]>([])
@@ -37,7 +37,7 @@ const useGroups = () => {
 		setTimeout(() => {
 			axios
 				// .get('https://633ab4c7e02b9b64c6155e2f.mockapi.io/groups')
-				// .get('http://localhost:3000/groups')
+				.get('http://localhost:3000/groups')
 				.then(response => {
 					setGroups(response.data)
 					setFilteredGroups(response.data)
